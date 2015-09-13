@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>869</width>
+    <height>549</height>
+   </rect>
+  </property>
+  <property name="acceptDrops">
+   <bool>false</bool>
+  </property>
+  <property name="windowTitle">
+   <string>五子棋</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="fivechessclient.qrc">
+    <normaloff>:/new/prefix1/src/Icon.png</normaloff>:/new/prefix1/src/Icon.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>871</width>
+      <height>551</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/new/prefix1/src/Main.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="UserList">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>10</y>
+      <width>141</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::CustomContextMenu</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="MyStatus">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>幼圆</family>
+      <pointsize>9</pointsize>
+      <italic>true</italic>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>190</y>
+      <width>141</width>
+      <height>291</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>0</y>
+      <width>161</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/new/prefix1/src/user.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>180</y>
+      <width>161</width>
+      <height>371</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/new/prefix1/src/chat.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="Input">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>490</y>
+      <width>141</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>181</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/new/prefix1/src/status.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BeginWithAI">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>0</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/new/prefix1/src/beginWithAI.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BeginWithOther">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>0</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/new/prefix1/src/startMatching.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Surrender">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>510</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/new/prefix1/src/surrender.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="DrawChess">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>510</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/new/prefix1/src/drawChess.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Retract">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>510</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/new/prefix1/src/retract.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>130</y>
+      <width>54</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>340</y>
+      <width>54</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <zorder>label</zorder>
+   <zorder>label_4</zorder>
+   <zorder>MyStatus</zorder>
+   <zorder>BeginWithAI</zorder>
+   <zorder>BeginWithOther</zorder>
+   <zorder>Surrender</zorder>
+   <zorder>DrawChess</zorder>
+   <zorder>label_3</zorder>
+   <zorder>Input</zorder>
+   <zorder>label_2</zorder>
+   <zorder>UserList</zorder>
+   <zorder>textBrowser</zorder>
+   <zorder>Retract</zorder>
+   <zorder>label_5</zorder>
+   <zorder>label_6</zorder>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="fivechessclient.qrc"/>
+ </resources>
+ <connections/>
+</ui>

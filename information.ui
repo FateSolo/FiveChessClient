@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Information</class>
+ <widget class="QWidget" name="Information">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>180</width>
+    <height>243</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>玩家详细信息</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="fivechessclient.qrc">
+    <normaloff>:/new/prefix1/src/Icon.png</normaloff>:/new/prefix1/src/Icon.png</iconset>
+  </property>
+  <widget class="QLabel" name="Title">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>161</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>玩家详细信息</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Win">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>90</y>
+     <width>54</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>胜场：</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Draw">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>170</y>
+     <width>54</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>和场：</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Lose">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>130</y>
+     <width>54</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>负场：</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ok">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>210</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>确定</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Name">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>50</y>
+     <width>91</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="WinNum">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>90</y>
+     <width>54</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LoseNum">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>130</y>
+     <width>54</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="DrawNum">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>170</y>
+     <width>54</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>50</y>
+     <width>54</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>昵称：</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="fivechessclient.qrc"/>
+ </resources>
+ <connections/>
+</ui>

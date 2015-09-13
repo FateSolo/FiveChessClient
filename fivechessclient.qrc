@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>src/Background.jpg</file>
+        <file>src/beginWithAI.png</file>
+        <file>src/button.png</file>
+        <file>src/drawChess.png</file>
+        <file>src/Icon.png</file>
+        <file>src/Main.png</file>
+        <file>src/Password.png</file>
+        <file>src/status.png</file>
+        <file>src/surrender.png</file>
+        <file>src/Username.png</file>
+        <file>src/chat.png</file>
+        <file>src/user.png</file>
+        <file>src/Black.png</file>
+        <file>src/BlackChess.png</file>
+        <file>src/White.png</file>
+        <file>src/WhiteChess.png</file>
+        <file>src/Exit.png</file>
+        <file>src/Login.png</file>
+        <file>src/Register.png</file>
+        <file>src/retract.png</file>
+        <file>src/startMatching.png</file>
+    </qresource>
+</RCC>
