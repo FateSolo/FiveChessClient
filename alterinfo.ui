@@ -133,7 +133,7 @@
     </rect>
    </property>
    <property name="maxLength">
-    <number>12</number>
+    <number>10</number>
    </property>
   </widget>
   <widget class="QLineEdit" name="InputPassWd">

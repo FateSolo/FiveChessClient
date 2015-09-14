@@ -21,7 +21,7 @@ void AlterInfo::setInfo(QString userName, QTcpSocket *client) {
 void AlterInfo::on_alterName_clicked() {
     nickName = ui->InputName->text();
     if(nickName.length() < 4) {
-        QMessageBox::information(this, QStringLiteral("修改失败!"), QStringLiteral("长度应在4-12位之间  "));
+        QMessageBox::information(this, QStringLiteral("修改失败!"), QStringLiteral("长度应在4-10位之间  "));
         return;
     }
     if(nickName.contains(" ")) {

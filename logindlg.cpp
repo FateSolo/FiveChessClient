@@ -17,7 +17,7 @@ void LoginDlg::on_LoginButton_clicked() {
     password = ui->PasswordEdit->text();
 
     if(username.length() < 4) {
-        QMessageBox::information(this, QStringLiteral("用户名无效!"), QStringLiteral("长度应在4-12位之间  "));
+        QMessageBox::information(this, QStringLiteral("用户名无效!"), QStringLiteral("长度应在4-10位之间  "));
         return;
     }
     if(username.contains(" ")) {
@@ -70,7 +70,7 @@ void LoginDlg::on_RegisterButton_clicked() {
     password = ui->PasswordEdit->text();
 
     if(username.length() < 4) {
-        QMessageBox::information(this, QStringLiteral("用户名无效!"), QStringLiteral("长度应在4-12位之间  "));
+        QMessageBox::information(this, QStringLiteral("用户名无效!"), QStringLiteral("长度应在4-10位之间  "));
         return;
     }
     if(username.contains(" ")) {

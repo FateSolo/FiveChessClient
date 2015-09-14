@@ -155,7 +155,7 @@
     <locale language="English" country="UnitedStates"/>
    </property>
    <property name="maxLength">
-    <number>12</number>
+    <number>10</number>
    </property>
    <property name="echoMode">
     <enum>QLineEdit::Normal</enum>
