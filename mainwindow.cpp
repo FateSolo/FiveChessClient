@@ -41,7 +41,7 @@ void MainWindow::clientReadyRead() {
             7 * (msg[0] == "/Win") + 8 * (msg[0] == "/Lose") +
             9  * (msg[0] == "/Draw") + 10 * (msg[0] == "/NoDraw") +
             11 * (msg[0] == "/Retract") + 12 * (msg[0] == "/NoRetract") +
-            13 * (msg[0] == "/AlterPasswdSuccess") + 14 * (msg[0] == "/Invited") +
+            13 * (msg[0] == "/AlterPasswordSuccess") + 14 * (msg[0] == "/Invited") +
             15 * (msg[0] == "/SendMsg") + 16 * (msg[0] == "/UpdateUserList") +
             17 * (msg[0] == "/IsDraw") + 18 * (msg[0] == "IsRetract");
 

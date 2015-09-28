@@ -39,7 +39,7 @@ void AlterInfo::on_alterPassWd_clicked() {
         QMessageBox::information(this, QStringLiteral("修改失败!"), QStringLiteral("长度应在6-10位之间  "));
         return;
     }
-    passWord = "/AlterPasswd " + passWord;
+    passWord = "/AlterPassword " + passWord;
     client->write(passWord.toUtf8());
     client->waitForBytesWritten();
 }
