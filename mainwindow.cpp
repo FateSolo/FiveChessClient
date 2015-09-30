@@ -51,7 +51,7 @@ void MainWindow::clientReadyRead() {
                 11 * (msg[0] == "/Retract") + 12 * (msg[0] == "/NoRetract") +
                 13 * (msg[0] == "/AlterPasswordSuccess") + 14 * (msg[0] == "/Invited") +
                 15 * (msg[0] == "/SendMsg") + 16 * (msg[0] == "/UpdateUserList") +
-                17 * (msg[0] == "/IsDraw") + 18 * (msg[0] == "IsRetract");
+                17 * (msg[0] == "/IsDraw") + 18 * (msg[0] == "/IsRetract");
 
         switch(i) {
         case 1:
@@ -79,6 +79,7 @@ void MainWindow::clientReadyRead() {
             QMessageBox::information(this, QStringLiteral("邀请成功"), QStringLiteral("对方同意了您的邀请  "));
             memset(chessBoard, 255, 225);
 
+            isAI = false;
             isGaming = true;
             isTurnClient = true;
             isWhite = 0;
@@ -94,28 +95,33 @@ void MainWindow::clientReadyRead() {
 
         case 7:
             QMessageBox::information(this, QStringLiteral("游戏结束"), QStringLiteral("恭喜你赢得了这局胜利!  "));
-            mystatus[3] = QString::number(mystatus[3].toInt() + 1);
-            updateInfo();
 
+            if(!isAI) {
+                mystatus[3] = QString::number(mystatus[3].toInt() + 1);
+                updateInfo();
+            }
             isGaming = false;
             break;
 
         case 8:
             chessBoard[msg[2].toInt()][msg[1].toInt()] = 1 - isWhite;
             ui->label->update();
-
             QMessageBox::information(this, QStringLiteral("游戏结束"), QStringLiteral("你输了, 请继续努力!  "));
-            mystatus[4] = QString::number(mystatus[4].toInt() + 1);
-            updateInfo();
 
+            if(!isAI) {
+                mystatus[4] = QString::number(mystatus[4].toInt() + 1);
+                updateInfo();
+            }
             isGaming = false;
             break;
 
         case 9:
             QMessageBox::information(this, QStringLiteral("游戏结束"), QStringLiteral("对方同意了您的和棋请求  "));
-            mystatus[5] = QString::number(mystatus[5].toInt() + 1);
-            updateInfo();
 
+            if(!isAI) {
+                mystatus[5] = QString::number(mystatus[5].toInt() + 1);
+                updateInfo();
+            }
             isGaming = false;
             break;
 
@@ -134,7 +140,13 @@ void MainWindow::clientReadyRead() {
             break;
 
         case 12:
-            QMessageBox::information(this, QStringLiteral("悔棋失败"), QStringLiteral("对方拒绝了您的悔棋请求  "));
+            if(msg[1] == "0") {
+                QMessageBox::information(this, QStringLiteral("悔棋失败"), QStringLiteral("您还未落子  "));
+            } else if(msg[1] == "1") {
+                QMessageBox::information(this, QStringLiteral("悔棋失败"), QStringLiteral("一个回合只能悔棋一次  "));
+            } else {
+                QMessageBox::information(this, QStringLiteral("悔棋失败"), QStringLiteral("对方拒绝了您的悔棋请求  "));
+            }
             isTurnClient = true;
             break;
 
@@ -155,6 +167,7 @@ void MainWindow::clientReadyRead() {
                 client->write(data.toUtf8());
                 memset(chessBoard, 255, 225);
 
+                isAI = false;
                 isGaming = true;
                 isTurnClient = false;
                 isWhite = 1;
@@ -186,6 +199,7 @@ void MainWindow::clientReadyRead() {
             } else {
                 QString data = "/Draw 1";
                 client->write(data.toUtf8());
+
                 mystatus[5] = QString::number(mystatus[5].toInt() + 1);
                 updateInfo();
 
@@ -199,9 +213,15 @@ void MainWindow::clientReadyRead() {
                     QStringLiteral("同意"), QStringLiteral("拒绝"));
 
             if(i) {
-
+                QString data = "/NoRetract 0";
+                client->write(data.toUtf8());
             } else {
+                QString data = "/Retract 1";
+                client->write(data.toUtf8());
 
+                chessBoard[msg[2].toInt()][msg[1].toInt()] = 255;
+                chessBoard[msg[4].toInt()][msg[3].toInt()] = 255;
+                ui->label->update();
             }
             client->waitForBytesWritten();
             break;
@@ -278,7 +298,7 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event) {
                     }
                 }
             }
-        } else if(event->type() == QEvent::MouseButtonPress) {
+        } else if(event->type() == QEvent::MouseButtonPress && isTurnClient) {
             point_x = ui->label->mapFromGlobal(QCursor::pos()).x();
             point_y = ui->label->mapFromGlobal(QCursor::pos()).y();
         } else if(event->type() == QEvent::MouseButtonRelease && isTurnClient) {
@@ -334,6 +354,7 @@ void MainWindow::on_BeginWithAI_clicked() {
         client->waitForBytesWritten();
         memset(chessBoard, 255, 225);
 
+        isAI = true;
         isGaming = true;
         isTurnClient = false;
         isWhite = 1;
@@ -353,6 +374,7 @@ void MainWindow::on_DrawChess_clicked() {
         if(isTurnClient) {
             client->write("/DrawChess 1");
             client->waitForBytesWritten();
+
             isTurnClient = false;
         } else {
             QMessageBox::information(this, QStringLiteral("和棋无效"), QStringLiteral("请先等待对方落子  "));
@@ -368,9 +390,12 @@ void MainWindow::on_Surrender_clicked() {
             client->write("/Surrender 1");
             client->waitForBytesWritten();
             QMessageBox::information(this, QStringLiteral("游戏结束"), QStringLiteral("你输了, 请继续努力!  "));
+
+            if(!isAI) {
+                mystatus[4] = QString::number(mystatus[4].toInt() + 1);
+                updateInfo();
+            }
             isGaming = false;
-            mystatus[4] = QString::number(mystatus[4].toInt() + 1);
-            updateInfo();
         } else {
             QMessageBox::information(this, QStringLiteral("认输无效"), QStringLiteral("请先等待对方落子  "));
         }
@@ -382,8 +407,9 @@ void MainWindow::on_Surrender_clicked() {
 void MainWindow::on_Retract_clicked() {
     if(isGaming) {
         if(isTurnClient) {
-            client->write("/Retract 1");
+            client->write("/RetractChess 1");
             client->waitForBytesWritten();
+
             isTurnClient = false;
         } else {
             QMessageBox::information(this, QStringLiteral("悔棋无效"), QStringLiteral("请先等待对方落子  "));

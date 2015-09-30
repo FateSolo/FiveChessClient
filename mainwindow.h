@@ -39,6 +39,7 @@ private:
     void updateInfo();
 
     QStringList mystatus;
+    bool isAI;
     bool isGaming;
     bool isTurnClient;
     int isWhite;
