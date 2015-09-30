@@ -45,6 +45,7 @@ private:
     int point_x;
     int point_y;
     unsigned char chessBoard[15][15];
+
     Information information;
     AlterInfo alterInfo;
     Ui::MainWindow *ui;

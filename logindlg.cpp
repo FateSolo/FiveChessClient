@@ -20,10 +20,12 @@ void LoginDlg::on_LoginButton_clicked() {
         QMessageBox::information(this, QStringLiteral("用户名无效!"), QStringLiteral("长度应在4-10位之间  "));
         return;
     }
+
     if(username.contains(" ")) {
         QMessageBox::information(this, QStringLiteral("用户名无效!"), QStringLiteral("用户名不可以包含空格  "));
         return;
     }
+
     if(password.length() < 6) {
         QMessageBox::information(this, QStringLiteral("密码无效!"), QStringLiteral("长度应在6-10位之间  "));
         return;
@@ -36,6 +38,7 @@ void LoginDlg::on_LoginButton_clicked() {
         QMessageBox::information(this, QStringLiteral("无法连接至服务器!"), QStringLiteral("请检查您的网络配置  "));
         return;
     }
+
     mw.client->write(data.toUtf8());
     if(mw.client->waitForReadyRead()) {
         data = mw.client->read(1024);
@@ -47,12 +50,14 @@ void LoginDlg::on_LoginButton_clicked() {
         mw.client->waitForDisconnected();
         return;
     }
+
     if(data == "/PasswordError") {
         QMessageBox::information(this, QStringLiteral("密码错误!"), QStringLiteral("请重新输入正确的密码  "));
         mw.client->disconnectFromHost();
         mw.client->waitForDisconnected();
         return;
     }
+
     if(data == "/UserHasLogged") {
         QMessageBox::information(this, QStringLiteral("用户已经登陆!"), QStringLiteral("不允许账号重复登陆  "));
         mw.client->disconnectFromHost();
@@ -73,10 +78,12 @@ void LoginDlg::on_RegisterButton_clicked() {
         QMessageBox::information(this, QStringLiteral("用户名无效!"), QStringLiteral("长度应在4-10位之间  "));
         return;
     }
+
     if(username.contains(" ")) {
         QMessageBox::information(this, QStringLiteral("用户名无效!"), QStringLiteral("用户名不可以包含空格  "));
         return;
     }
+
     if(password.length() < 6) {
         QMessageBox::information(this, QStringLiteral("密码无效!"), QStringLiteral("长度应在6-10位之间  "));
         return;
@@ -89,6 +96,7 @@ void LoginDlg::on_RegisterButton_clicked() {
         QMessageBox::information(this, QStringLiteral("无法连接至服务器!"), QStringLiteral("请检查您的网络配置  "));
         return;
     }
+
     mw.client->write(data.toUtf8());
     if(mw.client->waitForReadyRead()) {
         data = mw.client->read(1024);
