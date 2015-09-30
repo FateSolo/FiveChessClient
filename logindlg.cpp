@@ -31,7 +31,7 @@ void LoginDlg::on_LoginButton_clicked() {
 
     QString data = "/Login " + username + " " + password;
 
-    mw.client->connectToHost(QHostAddress("192.168.132.136"), 7110);
+    mw.client->connectToHost(QHostAddress("192.168.132.137"), 7110);
     if(!mw.client->waitForConnected(3000)) {
         QMessageBox::information(this, QStringLiteral("无法连接至服务器!"), QStringLiteral("请检查您的网络配置  "));
         return;
@@ -84,7 +84,7 @@ void LoginDlg::on_RegisterButton_clicked() {
 
     QString data = "/Register " + username + " " + password;
 
-    mw.client->connectToHost(QHostAddress("192.168.132.136"), 7110);
+    mw.client->connectToHost(QHostAddress("192.168.132.137"), 7110);
     if(!mw.client->waitForConnected(3000)) {
         QMessageBox::information(this, QStringLiteral("无法连接至服务器!"), QStringLiteral("请检查您的网络配置  "));
         return;
