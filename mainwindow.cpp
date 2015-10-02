@@ -88,8 +88,12 @@ void MainWindow::clientReadyRead() {
         case 6:
             if(msg[1] == "0") {
                 QMessageBox::information(this, QStringLiteral("邀请失败"), QStringLiteral("对方正在游戏中  "));
-            } else {
+            } else if(msg[1] == "1") {
                 QMessageBox::information(this, QStringLiteral("邀请失败"), QStringLiteral("对方拒绝了您的邀请  "));
+            } else if(msg[1] == "2") {
+                QMessageBox::information(this, QStringLiteral("开始游戏失败"), QStringLiteral("您已经开始了游戏  "));
+            } else {
+                QMessageBox::information(this, QStringLiteral("开始游戏失败"), QStringLiteral("对方已经开始了游戏  "));
             }
             break;
 
@@ -350,7 +354,11 @@ void MainWindow::on_BeginWithAI_clicked() {
     if(isGaming) {
         QMessageBox::information(this, QStringLiteral("无法开始"), QStringLiteral("您正在游戏中  "));
     } else {
-        client->write("/BeginWithAI 1");
+        int i = QMessageBox::information(this, QStringLiteral("难度选择"), QStringLiteral("请选择五子棋AI的难度 "),
+                QStringLiteral("简单"), QStringLiteral("普通"), QStringLiteral("困难"));
+
+        QString data = "/BeginWithAI " + QString::number(i);
+        client->write(data.toUtf8());
         client->waitForBytesWritten();
         memset(chessBoard, 255, 225);
 
