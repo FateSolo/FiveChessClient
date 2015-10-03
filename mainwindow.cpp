@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->Input->setStyleSheet("border:1px; background:(0x00,0xff,0x00,0x00)");
     ui->UserList->setStyleSheet("border:1px; background:(0x00,0xff,0x00,0x00)");
+    ui->GameStatus->setStyleSheet("border:1px; background:(0x00,0xff,0x00,0x00)");
     ui->textBrowser->setStyleSheet("border:1px; background:(0x00,0xff,0x00,0x00)");
 
     ui->label->installEventFilter(this);
@@ -32,6 +33,10 @@ MainWindow::~MainWindow() {
 void MainWindow::Init(QString data) {
     mystatus = data.split(" ");
     updateInfo();
+
+    ui->textBrowser->setText(QStringLiteral("欢迎您来到五子棋游戏大厅"));
+    ui->GameStatus->hide();
+    ui->label_5->hide();
 
     connect(client, SIGNAL(readyRead()), this, SLOT(clientReadyRead()));
     client->write("/GetUserList 1");
@@ -62,6 +67,13 @@ void MainWindow::clientReadyRead() {
         case 2:
             chessBoard[msg[2].toInt()][msg[1].toInt()] = 1 - isWhite;
             ui->label->update();
+
+            if(!isWhite) {
+                ui->GameStatus->item(4)->setText(QStringLiteral("白方: (") + msg[1] + ", " + msg[2] + ")");
+            } else {
+                ui->GameStatus->item(3)->setText(QStringLiteral("黑方: (") + msg[1] + ", " + msg[2] + ")");
+            }
+
             isTurnClient = true;
             break;
 
@@ -79,10 +91,7 @@ void MainWindow::clientReadyRead() {
             QMessageBox::information(this, QStringLiteral("邀请成功"), QStringLiteral("对方同意了您的邀请  "));
             memset(chessBoard, 255, 225);
 
-            isAI = false;
-            isGaming = true;
-            isTurnClient = true;
-            isWhite = 0;
+            gameBegin(false, true, 0, msg[1]);
             break;
 
         case 6:
@@ -104,7 +113,7 @@ void MainWindow::clientReadyRead() {
                 mystatus[3] = QString::number(mystatus[3].toInt() + 1);
                 updateInfo();
             }
-            isGaming = false;
+            gameEnd();
             break;
 
         case 8:
@@ -116,7 +125,7 @@ void MainWindow::clientReadyRead() {
                 mystatus[4] = QString::number(mystatus[4].toInt() + 1);
                 updateInfo();
             }
-            isGaming = false;
+            gameEnd();
             break;
 
         case 9:
@@ -126,7 +135,7 @@ void MainWindow::clientReadyRead() {
                 mystatus[5] = QString::number(mystatus[5].toInt() + 1);
                 updateInfo();
             }
-            isGaming = false;
+            gameEnd();
             break;
 
         case 10:
@@ -171,10 +180,7 @@ void MainWindow::clientReadyRead() {
                 client->write(data.toUtf8());
                 memset(chessBoard, 255, 225);
 
-                isAI = false;
-                isGaming = true;
-                isTurnClient = false;
-                isWhite = 1;
+                gameBegin(false, false, 1, msg[1]);
             }
             client->waitForBytesWritten();
             break;
@@ -207,7 +213,7 @@ void MainWindow::clientReadyRead() {
                 mystatus[5] = QString::number(mystatus[5].toInt() + 1);
                 updateInfo();
 
-                isGaming = false;
+                gameEnd();
             }
             client->waitForBytesWritten();
             break;
@@ -319,6 +325,14 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event) {
                     chessBoard[j][i] = isWhite;
                     ui->label->update();
 
+                    if(isWhite) {
+                        ui->GameStatus->item(4)->setText(QStringLiteral("白方: (") +
+                                                         QString::number(i) + ", " + QString::number(j) + ")");
+                    } else {
+                        ui->GameStatus->item(3)->setText(QStringLiteral("黑方: (") +
+                                                         QString::number(i) + ", " + QString::number(j) + ")");
+                    }
+
                     client->write(data.toUtf8());
                     client->waitForBytesWritten();
                     isTurnClient = false;
@@ -350,6 +364,41 @@ void MainWindow::updateInfo() {
     ui->MyStatus->setText(data);
 }
 
+void MainWindow::gameBegin(bool ai, bool turnclient, int white, QString info) {
+    isAI = ai;
+    isTurnClient = turnclient;
+    isWhite = white;
+    isGaming = true;
+
+    if(isAI) {
+        gamestatus << QStringLiteral("人机对弈房间") << QStringLiteral("AI难度: ") + info;
+    } else {
+        gamestatus << QStringLiteral("双人对弈房间") << QStringLiteral("对手: ") + info;
+    }
+
+    if(isWhite) {
+        gamestatus[1] += QStringLiteral(" (黑方)");
+    } else {
+        gamestatus[1] += QStringLiteral(" (白方)");
+    }
+
+    gamestatus << "" << QStringLiteral("黑方: 尚未落子") << QStringLiteral("白方: 尚未落子");
+
+    ui->GameStatus->addItems(gamestatus);
+    ui->GameStatus->show();
+    ui->label_5->show();
+}
+
+void MainWindow::gameEnd() {
+    isGaming = false;
+    gamestatus.clear();
+
+    ui->textBrowser->setText(QStringLiteral("游戏结束, 您回到了游戏大厅"));
+    ui->GameStatus->clear();
+    ui->GameStatus->hide();
+    ui->label_5->hide();
+}
+
 void MainWindow::on_BeginWithAI_clicked() {
     if(isGaming) {
         QMessageBox::information(this, QStringLiteral("无法开始"), QStringLiteral("您正在游戏中  "));
@@ -362,10 +411,20 @@ void MainWindow::on_BeginWithAI_clicked() {
         client->waitForBytesWritten();
         memset(chessBoard, 255, 225);
 
-        isAI = true;
-        isGaming = true;
-        isTurnClient = false;
-        isWhite = 1;
+        switch(i) {
+        case 0:
+            data = QStringLiteral("简单");
+            break;
+
+        case 1:
+            data = QStringLiteral("普通");
+            break;
+
+        case 2:
+            data = QStringLiteral("困难");
+            break;
+        }
+        gameBegin(true, false, 1, data);
     }
 }
 
@@ -403,7 +462,7 @@ void MainWindow::on_Surrender_clicked() {
                 mystatus[4] = QString::number(mystatus[4].toInt() + 1);
                 updateInfo();
             }
-            isGaming = false;
+            gameEnd();
         } else {
             QMessageBox::information(this, QStringLiteral("认输无效"), QStringLiteral("请先等待对方落子  "));
         }

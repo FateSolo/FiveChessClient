@@ -41,6 +41,7 @@ void LoginDlg::on_LoginButton_clicked() {
 
     mw.client->write(data.toUtf8());
     if(mw.client->waitForReadyRead()) {
+        mw.client->read(4);
         data = mw.client->read(1024);
     }
 
@@ -99,6 +100,7 @@ void LoginDlg::on_RegisterButton_clicked() {
 
     mw.client->write(data.toUtf8());
     if(mw.client->waitForReadyRead()) {
+        mw.client->read(4);
         data = mw.client->read(1024);
     }
 

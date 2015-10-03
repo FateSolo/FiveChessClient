@@ -236,33 +236,24 @@
      <string/>
     </property>
    </widget>
+   <widget class="QListWidget" name="GameStatus">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>10</y>
+      <width>141</width>
+      <height>161</height>
+     </rect>
+    </property>
+   </widget>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>130</y>
-      <width>54</width>
-      <height>41</height>
+      <x>720</x>
+      <y>10</y>
+      <width>141</width>
+      <height>161</height>
      </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>340</y>
-      <width>54</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
     </property>
     <property name="text">
      <string/>
@@ -278,11 +269,11 @@
    <zorder>label_3</zorder>
    <zorder>Input</zorder>
    <zorder>label_2</zorder>
-   <zorder>UserList</zorder>
    <zorder>textBrowser</zorder>
    <zorder>Retract</zorder>
+   <zorder>UserList</zorder>
+   <zorder>GameStatus</zorder>
    <zorder>label_5</zorder>
-   <zorder>label_6</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

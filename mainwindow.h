@@ -25,11 +25,14 @@ public:
 private slots:
     void clientReadyRead();
     void on_UserList_customContextMenuRequested(const QPoint &pos);
+
     void alterInfoTriggered();
     void getInfoTriggered();
     void inviteTriggered();
+
     void on_BeginWithAI_clicked();
     void on_BeginWithOther_clicked();
+
     void on_DrawChess_clicked();
     void on_Surrender_clicked();
     void on_Retract_clicked();
@@ -37,8 +40,12 @@ private slots:
 private:
     bool eventFilter(QObject *obj, QEvent *event);
     void updateInfo();
+    void gameBegin(bool ai, bool turnclient, int white, QString info);
+    void gameEnd();
 
     QStringList mystatus;
+    QStringList gamestatus;
+
     bool isAI;
     bool isGaming;
     bool isTurnClient;
