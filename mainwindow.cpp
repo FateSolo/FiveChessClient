@@ -384,6 +384,7 @@ void MainWindow::gameBegin(bool ai, bool turnclient, int white, QString info) {
 
     gamestatus << "" << QStringLiteral("黑方: 尚未落子") << QStringLiteral("白方: 尚未落子");
 
+    ui->textBrowser->setText(QStringLiteral("您已经进入了游戏房间"));
     ui->GameStatus->addItems(gamestatus);
     ui->GameStatus->show();
     ui->label_5->show();
