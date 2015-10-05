@@ -21,5 +21,6 @@
         <file>src/Register.png</file>
         <file>src/retract.png</file>
         <file>src/startMatching.png</file>
+        <file>src/stopMatching.png</file>
     </qresource>
 </RCC>

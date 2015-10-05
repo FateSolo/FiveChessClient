@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setFixedSize(this->width(), this->height());
 
     client = new QTcpSocket(this);
+    isWating = false;
     isGaming = false;
 }
 
@@ -56,7 +57,8 @@ void MainWindow::clientReadyRead() {
                 11 * (msg[0] == "/Retract") + 12 * (msg[0] == "/NoRetract") +
                 13 * (msg[0] == "/AlterPasswordSuccess") + 14 * (msg[0] == "/Invited") +
                 15 * (msg[0] == "/SendMsg") + 16 * (msg[0] == "/UpdateUserList") +
-                17 * (msg[0] == "/IsDraw") + 18 * (msg[0] == "/IsRetract");
+                17 * (msg[0] == "/IsDraw") + 18 * (msg[0] == "/IsRetract") +
+                19 * (msg[0] == "/BeginWithOther");
 
         switch(i) {
         case 1:
@@ -89,20 +91,31 @@ void MainWindow::clientReadyRead() {
 
         case 5:
             QMessageBox::information(this, QStringLiteral("邀请成功"), QStringLiteral("对方同意了您的邀请  "));
-            memset(chessBoard, 255, 225);
 
             gameBegin(false, true, 0, msg[1]);
             break;
 
         case 6:
-            if(msg[1] == "0") {
+            switch(msg[1].toInt()) {
+            case 0:
                 QMessageBox::information(this, QStringLiteral("邀请失败"), QStringLiteral("对方正在游戏中  "));
-            } else if(msg[1] == "1") {
+                break;
+
+            case 1:
+                QMessageBox::information(this, QStringLiteral("邀请失败"), QStringLiteral("对方正在随机寻找对手  "));
+                break;
+
+            case 2:
                 QMessageBox::information(this, QStringLiteral("邀请失败"), QStringLiteral("对方拒绝了您的邀请  "));
-            } else if(msg[1] == "2") {
+                break;
+
+            case 3:
                 QMessageBox::information(this, QStringLiteral("开始游戏失败"), QStringLiteral("您已经开始了游戏  "));
-            } else {
+                break;
+
+            case 4:
                 QMessageBox::information(this, QStringLiteral("开始游戏失败"), QStringLiteral("对方已经开始了游戏  "));
+                break;
             }
             break;
 
@@ -178,7 +191,6 @@ void MainWindow::clientReadyRead() {
             } else {
                 QString data = "/InviteSuccess " + msg[1];
                 client->write(data.toUtf8());
-                memset(chessBoard, 255, 225);
 
                 gameBegin(false, false, 1, msg[1]);
             }
@@ -235,6 +247,20 @@ void MainWindow::clientReadyRead() {
             }
             client->waitForBytesWritten();
             break;
+
+        case 19:
+            QMessageBox::information(this, QStringLiteral("找到对手"), QStringLiteral("点击确定开始游戏  "));
+
+            if(msg[2] == "0") {
+                gameBegin(false, true, 0, msg[1]);
+            } else {
+                gameBegin(false, false, 1, msg[1]);
+            }
+
+            ui->BeginWithOther->setStyleSheet("QPushButton{border-image: url(:/new/prefix1/src/startMatching.png);}");
+
+            isWating = false;
+            break;
         }
     }
 }
@@ -283,6 +309,8 @@ void MainWindow::getInfoTriggered() {
 void MainWindow::inviteTriggered() {
     if(isGaming) {
         QMessageBox::information(this, QStringLiteral("邀请失败"), QStringLiteral("您正在游戏中  "));
+    } else if(isWating) {
+        QMessageBox::information(this, QStringLiteral("邀请失败"), QStringLiteral("您正在随机寻找对手, 请先停止  "));
     } else {
         QString data = "/Invite " + ui->UserList->currentItem()->text();
         client->write(data.toUtf8());
@@ -388,6 +416,8 @@ void MainWindow::gameBegin(bool ai, bool turnclient, int white, QString info) {
     ui->GameStatus->addItems(gamestatus);
     ui->GameStatus->show();
     ui->label_5->show();
+
+    memset(chessBoard, 255, 225);
 }
 
 void MainWindow::gameEnd() {
@@ -403,6 +433,8 @@ void MainWindow::gameEnd() {
 void MainWindow::on_BeginWithAI_clicked() {
     if(isGaming) {
         QMessageBox::information(this, QStringLiteral("无法开始"), QStringLiteral("您正在游戏中  "));
+    } else if(isWating) {
+        QMessageBox::information(this, QStringLiteral("无法开始"), QStringLiteral("您正在随机寻找对手, 请先停止  "));
     } else {
         int i = QMessageBox::information(this, QStringLiteral("难度选择"), QStringLiteral("请选择五子棋AI的难度 "),
                 QStringLiteral("简单"), QStringLiteral("普通"), QStringLiteral("困难"));
@@ -410,7 +442,6 @@ void MainWindow::on_BeginWithAI_clicked() {
         QString data = "/BeginWithAI " + QString::number(i);
         client->write(data.toUtf8());
         client->waitForBytesWritten();
-        memset(chessBoard, 255, 225);
 
         switch(i) {
         case 0:
@@ -432,8 +463,20 @@ void MainWindow::on_BeginWithAI_clicked() {
 void MainWindow::on_BeginWithOther_clicked() {
     if(isGaming) {
         QMessageBox::information(this, QStringLiteral("无法开始"), QStringLiteral("您正在游戏中  "));
-    } else {
+    } else if (isWating) {
+        QString data = "/StopWithOther 1";
+        client->write(data.toUtf8());
 
+        ui->BeginWithOther->setStyleSheet("QPushButton{border-image: url(:/new/prefix1/src/startMatching.png);}");
+
+        isWating = false;
+    } else {
+        QString data = "/BeginWithOther 1";
+        client->write(data.toUtf8());
+
+        ui->BeginWithOther->setStyleSheet("QPushButton{border-image: url(:/new/prefix1/src/stopMatching.png);}");
+
+        isWating = true;
     }
 }
 

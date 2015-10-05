@@ -47,6 +47,7 @@ private:
     QStringList gamestatus;
 
     bool isAI;
+    bool isWating;
     bool isGaming;
     bool isTurnClient;
     int isWhite;
