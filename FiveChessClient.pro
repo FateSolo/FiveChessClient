@@ -30,3 +30,5 @@ FORMS    += mainwindow.ui \
 
 RESOURCES += \
     fivechessclient.qrc
+
+RC_FILE+= icon.rc

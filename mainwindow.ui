@@ -259,6 +259,19 @@
      <string/>
     </property>
    </widget>
+   <widget class="QLabel" name="Music">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>240</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>label</zorder>
    <zorder>label_4</zorder>
    <zorder>MyStatus</zorder>
@@ -274,6 +287,7 @@
    <zorder>UserList</zorder>
    <zorder>GameStatus</zorder>
    <zorder>label_5</zorder>
+   <zorder>Music</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
