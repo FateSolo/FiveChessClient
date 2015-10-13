@@ -529,3 +529,8 @@ void MainWindow::on_Retract_clicked() {
         QMessageBox::information(this, QStringLiteral("悔棋无效"), QStringLiteral("请先进入游戏  "));
     }
 }
+
+void MainWindow::on_Music_clicked()
+{
+
+}

@@ -259,14 +259,17 @@
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="Music">
+   <widget class="QPushButton" name="Music">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>240</y>
+      <x>90</x>
+      <y>360</y>
       <width>41</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/new/prefix1/src/MusicOn.png);</string>
     </property>
     <property name="text">
      <string/>

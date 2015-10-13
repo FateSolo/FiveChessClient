@@ -22,5 +22,7 @@
         <file>src/retract.png</file>
         <file>src/startMatching.png</file>
         <file>src/stopMatching.png</file>
+        <file>src/MusicOff.png</file>
+        <file>src/MusicOn.png</file>
     </qresource>
 </RCC>

@@ -36,6 +36,7 @@ private slots:
     void on_DrawChess_clicked();
     void on_Surrender_clicked();
     void on_Retract_clicked();
+    void on_Music_clicked();
 
 private:
     bool eventFilter(QObject *obj, QEvent *event);
