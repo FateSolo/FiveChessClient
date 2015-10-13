@@ -7,6 +7,9 @@
 #include <QHostAddress>
 #include <QMenu>
 #include <QtGui>
+#include <QUrl>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
 
 namespace Ui {
 class MainWindow;
@@ -51,6 +54,8 @@ private:
     bool isWating;
     bool isGaming;
     bool isTurnClient;
+    bool isPlayer;
+
     int isWhite;
     int point_x;
     int point_y;
@@ -59,6 +64,9 @@ private:
     Information information;
     AlterInfo alterInfo;
     Ui::MainWindow *ui;
+
+    QMediaPlayer *player;
+    QMediaPlaylist *playList;
 };
 
 #endif // MAINWINDOW_H

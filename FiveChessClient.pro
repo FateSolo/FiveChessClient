@@ -6,6 +6,7 @@
 
 QT       += core gui
 QT       += network
+QT       += multimedia
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = FiveChessClient
@@ -31,4 +32,4 @@ FORMS    += mainwindow.ui \
 RESOURCES += \
     fivechessclient.qrc
 
-RC_FILE+= icon.rc
+RC_FILE += icon.rc

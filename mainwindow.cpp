@@ -16,8 +16,16 @@ MainWindow::MainWindow(QWidget *parent) :
     setFixedSize(this->width(), this->height());
 
     client = new QTcpSocket(this);
-    isWating = false;
-    isGaming = false;
+
+    player = new QMediaPlayer(this);
+    playList = new QMediaPlaylist(this);
+
+    player->setPlaylist(playList);
+    player->setVolume(100);
+
+    playList->addMedia(QUrl("qrc:/new/prefix1/src/RoadsUntraveled.mp3"));
+
+    playList->setPlaybackMode(QMediaPlaylist::Loop);
 }
 
 MainWindow::~MainWindow() {
@@ -29,6 +37,9 @@ MainWindow::~MainWindow() {
 
     delete client;
     delete ui;
+
+    delete player;
+    delete playList;
 }
 
 void MainWindow::Init(QString data) {
@@ -41,6 +52,12 @@ void MainWindow::Init(QString data) {
 
     connect(client, SIGNAL(readyRead()), this, SLOT(clientReadyRead()));
     client->write("/GetUserList 1");
+
+    isWating = false;
+    isGaming = false;
+    isPlayer = true;
+
+    player->play();
 }
 
 void MainWindow::clientReadyRead() {
@@ -530,7 +547,18 @@ void MainWindow::on_Retract_clicked() {
     }
 }
 
-void MainWindow::on_Music_clicked()
-{
+void MainWindow::on_Music_clicked() {
+    if(isPlayer) {
+        ui->Music->setStyleSheet("QPushButton{border-image: url(:/new/prefix1/src/MusicOff.png);}");
 
+        player->pause();
+
+        isPlayer = false;
+    } else {
+        ui->Music->setStyleSheet("QPushButton{border-image: url(:/new/prefix1/src/MusicOn.png);}");
+
+        player->play();
+
+        isPlayer = true;
+    }
 }
