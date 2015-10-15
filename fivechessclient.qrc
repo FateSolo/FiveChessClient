@@ -24,6 +24,5 @@
         <file>src/stopMatching.png</file>
         <file>src/MusicOff.png</file>
         <file>src/MusicOn.png</file>
-        <file>src/RoadsUntraveled.mp3</file>
     </qresource>
 </RCC>

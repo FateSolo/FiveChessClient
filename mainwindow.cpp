@@ -15,17 +15,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setFixedSize(this->width(), this->height());
 
+    loadMusic();
+
     client = new QTcpSocket(this);
-
-    player = new QMediaPlayer(this);
-    playList = new QMediaPlaylist(this);
-
-    player->setPlaylist(playList);
-    player->setVolume(100);
-
-    playList->addMedia(QUrl("qrc:/new/prefix1/src/RoadsUntraveled.mp3"));
-
-    playList->setPlaybackMode(QMediaPlaylist::Loop);
 }
 
 MainWindow::~MainWindow() {
@@ -400,6 +392,29 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event) {
         }
     }
     return QMainWindow::eventFilter(obj, event);
+}
+
+void MainWindow::loadMusic() {
+    player = new QMediaPlayer(this);
+    playList = new QMediaPlaylist(this);
+
+    player->setPlaylist(playList);
+    player->setVolume(100);
+
+    playList->setPlaybackMode(QMediaPlaylist::Loop);
+
+    QDir *dir = new QDir("./music");
+
+    QStringList filter;
+    filter << "*.mp3";
+
+    QList<QFileInfo> *fileInfo = new QList<QFileInfo> (dir->entryInfoList(filter));
+    for(int i = 0; i < fileInfo->count(); i++) {
+        playList->addMedia(QUrl::fromLocalFile("./music/" + fileInfo->at(i).fileName()));
+    }
+
+    delete dir;
+    delete fileInfo;
 }
 
 void MainWindow::updateInfo() {

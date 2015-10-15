@@ -7,7 +7,6 @@
 #include <QHostAddress>
 #include <QMenu>
 #include <QtGui>
-#include <QUrl>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
 
@@ -43,7 +42,10 @@ private slots:
 
 private:
     bool eventFilter(QObject *obj, QEvent *event);
+
+    void loadMusic();
     void updateInfo();
+
     void gameBegin(bool ai, bool turnclient, int white, QString info);
     void gameEnd();
 
