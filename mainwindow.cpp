@@ -564,13 +564,13 @@ void MainWindow::on_Retract_clicked() {
 
 void MainWindow::on_Music_clicked() {
     if(isPlayer) {
-        ui->Music->setStyleSheet("QPushButton{border-image: url(:/new/prefix1/src/MusicOff.png);}");
+        ui->Music->setStyleSheet("QPushButton{border-image: url(:/new/prefix1/src/MusicOn.png);}");
 
         player->pause();
 
         isPlayer = false;
     } else {
-        ui->Music->setStyleSheet("QPushButton{border-image: url(:/new/prefix1/src/MusicOn.png);}");
+        ui->Music->setStyleSheet("QPushButton{border-image: url(:/new/prefix1/src/MusicOff.png);}");
 
         player->play();
 
