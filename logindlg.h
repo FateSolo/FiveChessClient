@@ -21,6 +21,8 @@ private slots:
     void on_ExitButton_clicked();
 
 private:
+    bool stringTest(int min, int max, QString s);
+
     MainWindow mw;
     QString username;
     QString password;

@@ -16,18 +16,13 @@ void LoginDlg::on_LoginButton_clicked() {
     username = ui->UsernameEdit->text();
     password = ui->PasswordEdit->text();
 
-    if(username.length() < 4) {
-        QMessageBox::information(this, QStringLiteral("用户名无效!"), QStringLiteral("长度应在4-10位之间  "));
+    if(!stringTest(4, 10, username)) {
+        QMessageBox::information(this, QStringLiteral("用户名无效!"), QStringLiteral("请输入长度在4-10位之间的字母与数字组合 "));
         return;
     }
 
-    if(username.contains(" ")) {
-        QMessageBox::information(this, QStringLiteral("用户名无效!"), QStringLiteral("用户名不可以包含空格  "));
-        return;
-    }
-
-    if(password.length() < 6) {
-        QMessageBox::information(this, QStringLiteral("密码无效!"), QStringLiteral("长度应在6-10位之间  "));
+    if(!stringTest(6, 10, password)) {
+        QMessageBox::information(this, QStringLiteral("密码无效!"), QStringLiteral("请输入长度在6-10位之间的字母与数字组合 "));
         return;
     }
 
@@ -75,18 +70,13 @@ void LoginDlg::on_RegisterButton_clicked() {
     username = ui->UsernameEdit->text();
     password = ui->PasswordEdit->text();
 
-    if(username.length() < 4) {
-        QMessageBox::information(this, QStringLiteral("用户名无效!"), QStringLiteral("长度应在4-10位之间  "));
+    if(!stringTest(4, 10, username)) {
+        QMessageBox::information(this, QStringLiteral("用户名无效!"), QStringLiteral("请输入长度在4-10位之间的字母与数字组合 "));
         return;
     }
 
-    if(username.contains(" ")) {
-        QMessageBox::information(this, QStringLiteral("用户名无效!"), QStringLiteral("用户名不可以包含空格  "));
-        return;
-    }
-
-    if(password.length() < 6) {
-        QMessageBox::information(this, QStringLiteral("密码无效!"), QStringLiteral("长度应在6-10位之间  "));
+    if(!stringTest(6, 10, password)) {
+        QMessageBox::information(this, QStringLiteral("密码无效!"), QStringLiteral("请输入长度在6-10位之间的字母与数字组合 "));
         return;
     }
 
@@ -118,4 +108,11 @@ void LoginDlg::on_RegisterButton_clicked() {
 
 void LoginDlg::on_ExitButton_clicked() {
     this->close();
+}
+
+bool LoginDlg::stringTest(int min, int max, QString s) {
+    QString pattern = QString("^[a-z0-9A-Z]{%1,%2}$").arg(min).arg(max);
+    QRegExp rx(pattern);
+
+    return rx.exactMatch(s);
 }
