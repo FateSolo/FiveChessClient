@@ -63,12 +63,13 @@ private:
     int point_y;
     unsigned char chessBoard[15][15];
 
-    Information information;
-    AlterInfo alterInfo;
-    Ui::MainWindow *ui;
-
     QMediaPlayer *player;
     QMediaPlaylist *playList;
+
+    Information information;
+    AlterInfo alterInfo;
+
+    Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H

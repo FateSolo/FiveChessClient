@@ -24,9 +24,11 @@ private slots:
 
 private:
     QTcpSocket *client;
+
     QString userName;
     QString nickName;
     QString passWord;
+
     Ui::AlterInfo *ui;
 };
 
