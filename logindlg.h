@@ -26,8 +26,8 @@ private slots:
     void on_ExitButton_clicked();
 
 private:
-    void loginHandle(QString s);
-    bool stringTest(int min, int max, QString s);
+    void loginHandle(QString type);
+    bool stringTest(int min, int max, QString testString);
 
     QMap<QString, ErrStr> err_map;
     QString username;

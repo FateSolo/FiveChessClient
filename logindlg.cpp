@@ -29,7 +29,7 @@ void LoginDlg::on_ExitButton_clicked() {
     this->close();
 }
 
-void LoginDlg::loginHandle(QString s) {
+void LoginDlg::loginHandle(QString type) {
     username = ui->UsernameEdit->text();
     password = ui->PasswordEdit->text();
 
@@ -43,7 +43,7 @@ void LoginDlg::loginHandle(QString s) {
         return;
     }
 
-    QString data = s + username + " " + password;
+    QString data = type + username + " " + password;
 
     QSettings *configIniRead = new QSettings("config.ini", QSettings::IniFormat);
 
@@ -76,9 +76,9 @@ void LoginDlg::loginHandle(QString s) {
     mw.Init(data);
 }
 
-bool LoginDlg::stringTest(int min, int max, QString s) {
+bool LoginDlg::stringTest(int min, int max, QString testString) {
     QString pattern = QString("^[a-z0-9A-Z]{%1,%2}$").arg(min).arg(max);
     QRegExp rx(pattern);
 
-    return rx.exactMatch(s);
+    return rx.exactMatch(testString);
 }
