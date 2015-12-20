@@ -275,6 +275,35 @@
      <string/>
     </property>
    </widget>
+   <widget class="QListWidget" name="UserStatus">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>10</y>
+      <width>41</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::CustomContextMenu</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>10</y>
+      <width>41</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>label</zorder>
    <zorder>label_4</zorder>
    <zorder>MyStatus</zorder>
@@ -287,10 +316,12 @@
    <zorder>label_2</zorder>
    <zorder>textBrowser</zorder>
    <zorder>Retract</zorder>
+   <zorder>Music</zorder>
    <zorder>UserList</zorder>
+   <zorder>UserStatus</zorder>
+   <zorder>label_6</zorder>
    <zorder>GameStatus</zorder>
    <zorder>label_5</zorder>
-   <zorder>Music</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

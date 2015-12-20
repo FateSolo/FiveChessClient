@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->Input->setStyleSheet("border:1px; background:(0x00,0xff,0x00,0x00)");
     ui->UserList->setStyleSheet("border:1px; background:(0x00,0xff,0x00,0x00)");
+    ui->UserStatus->setStyleSheet("border:1px; background-color:transparent");
     ui->GameStatus->setStyleSheet("border:1px; background:(0x00,0xff,0x00,0x00)");
     ui->textBrowser->setStyleSheet("border:1px; background:(0x00,0xff,0x00,0x00)");
 
@@ -195,10 +196,10 @@ void MainWindow::clientReadyRead() {
                     QStringLiteral("同意"), QStringLiteral("拒绝"));
 
             if(i) {
-                QString data = "/InviteFailed " + msg[1];
+                data = "/InviteFailed " + msg[1];
                 client->write(data.toUtf8());
             } else {
-                QString data = "/InviteSuccess " + msg[1];
+                data = "/InviteSuccess " + msg[1];
                 client->write(data.toUtf8());
 
                 gameBegin(false, false, 1, msg[1]);
@@ -216,8 +217,22 @@ void MainWindow::clientReadyRead() {
 
         case 16:
             ui->UserList->clear();
+            ui->UserStatus->clear();
             msg.removeAt(0);
-            ui->UserList->addItems(msg);
+
+            for(i = 0; i < msg.length(); i += 2) {
+                data = msg[i + 1];
+                if(data == "/idle") {
+                    data = QStringLiteral("空闲中");
+                } else if(data == "/waiting") {
+                    data = QStringLiteral("寻找中");
+                } else {
+                    data = QStringLiteral("游戏中");
+                }
+
+                ui->UserList->addItem(msg[i]);
+                ui->UserStatus->addItem(data);
+            }
             break;
 
         case 17:
@@ -225,10 +240,10 @@ void MainWindow::clientReadyRead() {
                     QStringLiteral("同意"), QStringLiteral("拒绝"));
 
             if(i) {
-                QString data = "/NoDraw 0";
+                data = "/NoDraw 0";
                 client->write(data.toUtf8());
             } else {
-                QString data = "/Draw 1";
+                data = "/Draw 1";
                 client->write(data.toUtf8());
 
                 mystatus[5] = QString::number(mystatus[5].toInt() + 1);
@@ -244,10 +259,10 @@ void MainWindow::clientReadyRead() {
                     QStringLiteral("同意"), QStringLiteral("拒绝"));
 
             if(i) {
-                QString data = "/NoRetract 0";
+                data = "/NoRetract 0";
                 client->write(data.toUtf8());
             } else {
-                QString data = "/Retract 1";
+                data = "/Retract 1";
                 client->write(data.toUtf8());
 
                 chessBoard[msg[2].toInt()][msg[1].toInt()] = 255;
