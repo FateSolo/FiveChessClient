@@ -1,6 +1,7 @@
 ﻿#ifndef ALTERINFO_H
 #define ALTERINFO_H
 
+#include "stringutil.h"
 #include <QWidget>
 #include <QTcpSocket>
 #include <QMessageBox>

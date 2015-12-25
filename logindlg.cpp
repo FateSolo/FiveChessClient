@@ -33,12 +33,12 @@ void LoginDlg::loginHandle(QString type) {
     username = ui->UsernameEdit->text();
     password = ui->PasswordEdit->text();
 
-    if(!stringTest(4, 10, username)) {
+    if(!StringUtil::stringTest(4, 10, username)) {
         QMessageBox::information(this, QStringLiteral("用户名无效!"), QStringLiteral("请输入长度在4-10位之间的字母与数字组合 "));
         return;
     }
 
-    if(!stringTest(6, 10, password)) {
+    if(!StringUtil::stringTest(6, 10, password)) {
         QMessageBox::information(this, QStringLiteral("密码无效!"), QStringLiteral("请输入长度在6-10位之间的字母与数字组合 "));
         return;
     }
@@ -74,11 +74,4 @@ void LoginDlg::loginHandle(QString type) {
     this->close();
     mw.show();
     mw.Init(data);
-}
-
-bool LoginDlg::stringTest(int min, int max, QString testString) {
-    QString pattern = QString("^[a-z0-9A-Z]{%1,%2}$").arg(min).arg(max);
-    QRegExp rx(pattern);
-
-    return rx.exactMatch(testString);
 }

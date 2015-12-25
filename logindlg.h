@@ -27,7 +27,6 @@ private slots:
 
 private:
     void loginHandle(QString type);
-    bool stringTest(int min, int max, QString testString);
 
     QMap<QString, ErrStr> err_map;
     QString username;

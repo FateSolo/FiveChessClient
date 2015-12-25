@@ -20,14 +20,12 @@ void AlterInfo::setInfo(QString userName, QTcpSocket *client) {
 
 void AlterInfo::on_alterName_clicked() {
     nickName = ui->InputName->text();
-    if(nickName.length() < 4) {
-        QMessageBox::information(this, QStringLiteral("修改失败!"), QStringLiteral("长度应在4-10位之间  "));
+
+    if(!StringUtil::stringTest(4, 10, nickName)) {
+        QMessageBox::information(this, QStringLiteral("修改失败!"), QStringLiteral("请输入长度在4-10位之间的字母与数字组合 "));
         return;
     }
-    if(nickName.contains(" ")) {
-        QMessageBox::information(this, QStringLiteral("修改失败!"), QStringLiteral("昵称不可以包含空格  "));
-        return;
-    }
+
     nickName = "/AlterName " + nickName;
     client->write(nickName.toUtf8());
     client->waitForBytesWritten();
@@ -35,10 +33,12 @@ void AlterInfo::on_alterName_clicked() {
 
 void AlterInfo::on_alterPassWd_clicked() {
     passWord = ui->InputPassWd->text();
-    if(passWord.length() < 6) {
-        QMessageBox::information(this, QStringLiteral("修改失败!"), QStringLiteral("长度应在6-10位之间  "));
+
+    if(!StringUtil::stringTest(6, 10, passWord)) {
+        QMessageBox::information(this, QStringLiteral("修改失败!"), QStringLiteral("请输入长度在6-10位之间的字母与数字组合 "));
         return;
     }
+
     passWord = "/AlterPassword " + passWord;
     client->write(passWord.toUtf8());
     client->waitForBytesWritten();

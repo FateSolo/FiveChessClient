@@ -17,12 +17,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     logindlg.cpp \
     information.cpp \
-    alterinfo.cpp
+    alterinfo.cpp \
+    stringutil.cpp
 
 HEADERS  += mainwindow.h \
     logindlg.h \
     information.h \
-    alterinfo.h
+    alterinfo.h \
+    stringutil.h
 
 FORMS    += mainwindow.ui \
     logindlg.ui \
