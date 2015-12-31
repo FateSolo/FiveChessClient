@@ -486,7 +486,7 @@ void MainWindow::on_BeginWithAI_clicked() {
         int i = QMessageBox::information(this, QStringLiteral("难度选择"), QStringLiteral("请选择五子棋AI的难度 "),
                 QStringLiteral("简单"), QStringLiteral("普通"), QStringLiteral("困难"));
 
-        QString data = "/BeginWithAI " + QString::number(i);
+        QString data = "/BeginWithAI " + QString::number(i + 1);
         client->write(data.toUtf8());
         client->waitForBytesWritten();
 
